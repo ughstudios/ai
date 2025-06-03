@@ -29,4 +29,7 @@ pip install torch numpy matplotlib
 python snake_ai.py
 ```
 
-Training might take a short while. After it finishes, the script opens a matplotlib window showing the trained snake play several games. If you do not see any window, check your `matplotlib` installation and GUI support.
+
+Note that the AI player does not use the Tkinter game defined in `main.py`.
+`snake_ai.py` implements a streamlined environment rendered with `matplotlib`
+so training can run without a GUI and with minimal overhead.
