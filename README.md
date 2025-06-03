@@ -13,3 +13,8 @@ required to display the board during the demo:
 pip install torch numpy matplotlib
 python games/snake/snake_ai.py
 ```
+
+Training may take a few minutes on a CPU. Once it completes, a window will
+open showing the agent playing several games automatically. If no window
+appears, ensure that `matplotlib` is installed and that your environment is
+able to display GUI windows.

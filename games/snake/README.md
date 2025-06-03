@@ -28,3 +28,5 @@ required for visualizing the board:
 pip install torch numpy matplotlib
 python snake_ai.py
 ```
+
+Training might take a short while. After it finishes, the script opens a matplotlib window showing the trained snake play several games. If you do not see any window, check your `matplotlib` installation and GUI support.
