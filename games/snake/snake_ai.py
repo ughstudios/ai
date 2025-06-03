@@ -206,5 +206,8 @@ def demo(env, policy, episodes=5):
 if __name__ == "__main__":
     train_env = SnakeEnv()
     trained_policy = train(train_env)
+    print("Training complete. Starting demo...")
     demo_env = SnakeEnv(render=True)
     demo(demo_env, trained_policy)
+    plt.ioff()
+    plt.show()
