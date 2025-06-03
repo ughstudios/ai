@@ -44,3 +44,14 @@ step in real time using the `main.py` board:
 pip install torch numpy
 python snake_ai_tk.py
 ```
+
+### AI demo in the original game
+
+`snake_ai_main.py` runs training and inference using the actual Tkinter board
+from `main.py`. This lets you watch the agent play with the normal game over
+screen:
+
+```bash
+pip install torch numpy pillow
+python snake_ai_main.py
+```
