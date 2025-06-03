@@ -29,3 +29,7 @@ pip install torch numpy matplotlib
 python snake_ai.py
 ```
 
+
+Note that the AI player does not use the Tkinter game defined in `main.py`.
+`snake_ai.py` implements a streamlined environment rendered with `matplotlib`
+so training can run without a GUI and with minimal overhead.

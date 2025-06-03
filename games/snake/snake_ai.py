@@ -7,6 +7,14 @@ import torch.optim as optim
 import matplotlib.pyplot as plt
 from matplotlib import colors
 
+"""Simplified Snake DQN demo.
+
+This script defines a minimal environment for training a DQN agent. It uses
+`matplotlib` to render the board instead of the Tkinter GUI found in
+`main.py`. Separating the environments keeps the training loop straightforward
+and allows headless execution when visualization is not needed.
+"""
+
 
 class SnakeEnv:
     """A minimal Snake game environment for training."""

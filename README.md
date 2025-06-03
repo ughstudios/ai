@@ -14,3 +14,8 @@ pip install torch numpy matplotlib
 python games/snake/snake_ai.py
 ```
 
+
+`snake_ai.py` does not rely on the Tkinter interface from `main.py`. Instead it
+uses a lightweight environment rendered with `matplotlib`. This keeps the
+training loop simple and lets the script run headless when visualization is not
+needed.
