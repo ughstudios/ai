@@ -18,3 +18,12 @@ preview. These were removed to keep the repository lightweight.
 
 ## Author
 [Aqeel Anwar](https://www.prism.gatech.edu/~manwar8)
+
+## Training an AI Player
+The file `snake_ai.py` implements a DQN agent that learns to play Snake.
+Execute the script to start training and see a demo:
+
+```bash
+pip install torch numpy
+python snake_ai.py
+```
