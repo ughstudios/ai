@@ -37,10 +37,13 @@ so training can run without a GUI and with minimal overhead.
 ### Training with the Tkinter GUI
 
 If you prefer to watch training inside the original Tkinter window, run
-`snake_ai_tk.py` instead. The agent uses the same DQN logic but renders each
-step in real time using the `main.py` board:
+`snake_ai_tk.py`. The script accepts a `--mode` argument to either train a
+model or play using a saved one:
 
 ```bash
-pip install torch numpy
-python snake_ai_tk.py
+# Train for 200 episodes and save the weights
+python snake_ai_tk.py --mode train --episodes 200 --model snake_dqn.pth
+
+# Load the saved model and watch the agent play
+python snake_ai_tk.py --mode play --model snake_dqn.pth
 ```
