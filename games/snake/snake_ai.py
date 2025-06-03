@@ -4,16 +4,23 @@ from collections import deque
 import torch
 import torch.nn as nn
 import torch.optim as optim
+import matplotlib.pyplot as plt
+from matplotlib import colors
 
 
 class SnakeEnv:
     """A minimal Snake game environment for training."""
 
-    def __init__(self, rows=10, cols=10, init_length=3):
+    def __init__(self, rows=10, cols=10, init_length=3, render=False):
         self.rows = rows
         self.cols = cols
         self.init_length = init_length
         self.action_space = 4  # left, right, up, down
+        self.render_enabled = render
+        self.fig = None
+        self.ax = None
+        self.img = None
+        self.cmap = colors.ListedColormap(["black", "green", "red"])
         self.reset()
 
     def reset(self):
@@ -21,6 +28,8 @@ class SnakeEnv:
         self.snake = [(i, 0) for i in range(self.init_length)]
         self.apple = self._random_cell()
         self.done = False
+        if self.render_enabled:
+            self._init_render()
         return self._get_state()
 
     def _random_cell(self):
@@ -37,6 +46,29 @@ class SnakeEnv:
         dir_onehot = np.zeros(4, dtype=np.float32)
         dir_onehot[self.direction] = 1.0
         return np.concatenate([board.flatten(), dir_onehot])
+
+    def _init_render(self):
+        if self.fig is None:
+            self.fig, self.ax = plt.subplots()
+            self.img = self.ax.imshow(np.zeros((self.rows, self.cols)),
+                                      cmap=self.cmap, vmin=0, vmax=2)
+            self.ax.axis("off")
+            plt.ion()
+            plt.show()
+        self.render()
+
+    def render(self):
+        if not self.render_enabled:
+            return
+        board = np.zeros((self.rows, self.cols))
+        for r, c in self.snake:
+            board[r, c] = 1
+        ar, ac = self.apple
+        board[ar, ac] = 2
+        self.img.set_data(board)
+        self.fig.canvas.draw()
+        self.fig.canvas.flush_events()
+        plt.pause(0.05)
 
     def step(self, action):
         if self.done:
@@ -77,6 +109,8 @@ class SnakeEnv:
         else:
             self.snake.pop(0)
 
+        if self.render_enabled:
+            self.render()
         return self._get_state(), reward, self.done
 
 
@@ -154,6 +188,8 @@ def demo(env, policy, episodes=5):
     for ep in range(episodes):
         state = env.reset()
         state = torch.tensor(state, dtype=torch.float32)
+        if env.render_enabled:
+            env.render()
         score = 0
         while True:
             with torch.no_grad():
@@ -168,6 +204,7 @@ def demo(env, policy, episodes=5):
 
 
 if __name__ == "__main__":
-    env = SnakeEnv()
-    trained_policy = train(env)
-    demo(env, trained_policy)
+    train_env = SnakeEnv()
+    trained_policy = train(train_env)
+    demo_env = SnakeEnv(render=True)
+    demo(demo_env, trained_policy)
