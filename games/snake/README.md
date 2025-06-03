@@ -21,9 +21,10 @@ preview. These were removed to keep the repository lightweight.
 
 ## Training an AI Player
 The file `snake_ai.py` implements a DQN agent that learns to play Snake.
-Execute the script to start training and see a demo:
+Execute the script to start training and see a demo. `matplotlib` is
+required for visualizing the board:
 
 ```bash
-pip install torch numpy
+pip install torch numpy matplotlib
 python snake_ai.py
 ```
