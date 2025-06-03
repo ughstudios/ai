@@ -1,5 +1,6 @@
 import random
 import time
+import argparse
 import numpy as np
 from collections import deque
 from tkinter import Tk, Canvas
@@ -207,9 +208,26 @@ def demo(env, policy, episodes=3):
                 break
 
 
-if __name__ == "__main__":
+def main():
+    parser = argparse.ArgumentParser(description="Train or play Snake with a DQN agent")
+    parser.add_argument("--mode", choices=["train", "play"], default="train", help="Run training or play using a saved model")
+    parser.add_argument("--model", default="snake_dqn.pth", help="Path for saving/loading the model")
+    parser.add_argument("--episodes", type=int, default=200, help="Number of episodes for training or playing")
+    args = parser.parse_args()
+
     env = SnakeTkEnv()
-    trained_policy = train(env)
-    print("Training complete. Starting demo...")
-    demo(env, trained_policy)
+
+    if args.mode == "train":
+        policy = train(env, episodes=args.episodes)
+        torch.save(policy.state_dict(), args.model)
+    else:
+        state_dim = env.rows * env.cols + 4
+        policy = DQN(state_dim)
+        policy.load_state_dict(torch.load(args.model))
+        demo(env, policy, episodes=args.episodes)
+
     env.close()
+
+
+if __name__ == "__main__":
+    main()
