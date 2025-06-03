@@ -33,3 +33,14 @@ python snake_ai.py
 Note that the AI player does not use the Tkinter game defined in `main.py`.
 `snake_ai.py` implements a streamlined environment rendered with `matplotlib`
 so training can run without a GUI and with minimal overhead.
+
+### Training with the Tkinter GUI
+
+If you prefer to watch training inside the original Tkinter window, run
+`snake_ai_tk.py` instead. The agent uses the same DQN logic but renders each
+step in real time using the `main.py` board:
+
+```bash
+pip install torch numpy
+python snake_ai_tk.py
+```
